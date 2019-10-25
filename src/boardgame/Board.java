@@ -25,6 +25,14 @@ public class Board {
 		this.collum = collum;
 	}
 	
+	public Piece piece(int row, int collum) {
+		return pieces[row][collum];
+	}
+	
+	// Sobrecarga do método
+	public Piece piece(Position position) {
+		return pieces[position.getRow()][position.getCollum()];		
+	}
 	
 	
 	
