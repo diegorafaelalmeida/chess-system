@@ -3,39 +3,62 @@ package boardgame;
 public class Board {
 
 	private int rows;
-	private int collum;
+	private int columns;
 	private Piece[][] pieces;
 	
-	public Board(int rows, int collum) {	
+	public Board(int rows, int columns) {
+		if(rows < 1 || columns < 1) {
+			throw new BoardException("Erro: é necessario pelo menos 1 linha e uma coluna para criar o tabuleiro");
+		}
 		this.rows = rows;
-		this.collum = collum;
-		pieces = new Piece[rows][collum];
+		this.columns = columns;
+		pieces = new Piece[rows][columns];
 	}
 	
 	public int getRows() {
 		return rows;
 	}
-	public void setRows(int rows) {
-		this.rows = rows;
-	}
-	public int getCollum() {
-		return collum;
-	}
-	public void setCollum(int collum) {
-		this.collum = collum;
+
+	public int getColumns() {
+		return columns;
 	}
 	
-	public Piece piece(int row, int collum) {
-		return pieces[row][collum];
+	public Piece piece(int row, int column) {
+		if(!positionExists(row, column)) {
+			throw new BoardException("Posição invalida");
+		}
+		return pieces[row][column];
 	}
 	
 	// Sobrecarga do método
 	public Piece piece(Position position) {
-		return pieces[position.getRow()][position.getCollum()];		
+		if(!positionExists(position)) {
+			throw new BoardException("Posição invalida");
+		}
+		return pieces[position.getRow()][position.getColumn()];		
 	}
 	public void placePiece(Piece piece, Position position) {
-		pieces[position.getRow()][position.getCollum()] = piece;
+		if(threresAPiece(position)) {
+			throw new BoardException("Já existe uma peça na posição: " + position);
+		}
+		pieces[position.getRow()][position.getColumn()] = piece;
 		piece.position = position;
+	}
+	
+	private boolean positionExists(int row, int column) {		
+		return row >=0 && row < rows && column >=0 && column < columns;
+	}
+	
+	//Programação recursiva + sobracarga de método!
+	public boolean positionExists(Position position){
+		return positionExists(position.getRow(), position.getColumn());
+	}
+	
+	public boolean threresAPiece(Position position) {
+		if(!positionExists(position)) {
+			throw new BoardException("Posição invalida");
+		}
+		return piece(position) != null;
 	}
 	
 	
