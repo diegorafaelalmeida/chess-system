@@ -19,7 +19,7 @@ public abstract class Piece {
 	public abstract boolean[][] possibleMoves();
 
 	//hook operação padrão que depende de um método abstrato ->possibleMoves
-	public boolean possibleMove() {
+	public boolean possibleMove(Position position) {
 		return possibleMoves()[position.getRow()][position.getColumn()];
 	}
 	

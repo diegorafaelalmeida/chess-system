@@ -38,7 +38,7 @@ public class Board {
 		return pieces[position.getRow()][position.getColumn()];		
 	}
 	public void placePiece(Piece piece, Position position) {
-		if(threresAPiece(position)) {
+		if(threrIsAPiece(position)) {
 			throw new BoardException("Já existe uma peça na posição: " + position);
 		}
 		pieces[position.getRow()][position.getColumn()] = piece;
@@ -71,7 +71,7 @@ public class Board {
 		return positionExists(position.getRow(), position.getColumn());
 	}
 	
-	public boolean threresAPiece(Position position) {
+	public boolean threrIsAPiece(Position position) {
 		if(!positionExists(position)) {
 			throw new BoardException("Posição invalida");
 		}
